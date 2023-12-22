@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <span>Total clicks: 0</span>
+    <button id="btn">Click me!</button>
+</body>
+<script>
+    let count = 0;
+    const button = document.getElementById("btn");
+    const span = document.querySelector("span");
+
+    function handleButton(){
+        count = count + 1;
+        // template literal 문법으로, 일명 '백틱 = ` '을 사용한다.
+        // 키보드 tab 위에 있다.
+        span.innerText = `Total clicks: ${count}`;
+    }
+    button.addEventListener("click", handleButton);
+</script>
+</html>

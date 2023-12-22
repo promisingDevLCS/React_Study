@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<!-- React 추가 (실무에선 이렇게 귀찮게 src를 받아오지 않는다.)
+    - react     : html 파일을 interactive 하게 만드는 패키지, 라이브러리
+    - react-dom : React element 요소를 html에 반영할 수 있도록 만드는 패키지, 라이브러리
+    - babel     : JSX를 컴파일 할 수 있게 만드는 패키지 (JSX는 React.CreateElement 대신 평범한 html 태그 안에 id, class, eventlistner 등을 넣을 수 있다.)
+-->
+<script src="https://unpkg.com/react@18.2.0/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+<script type="text/babel">
+    
+    function Btn({name, fontSize = 10}){
+
+        return(
+            <button
+            style={{
+                backgroundColor: "tomato",
+                color: "white",
+                padding: "10px 20px",
+                border: 0,
+                borderRadius: 10,
+                fontSize: fontSize,
+            }}>{name}</button>
+        )
+    }
+    
+    const root = document.getElementById("root");
+    Btn.propTypes ={
+        name: PropTypes.string.isRequired,
+        fontSize: PropTypes.number
+    };
+    function App(){
+        
+        return(
+            <div>
+                <Btn name="Save Changes" fontSize={16}/>
+                <Btn name="Confirm"/>
+            </div>
+        );
+    }
+    
+    ReactDOM.render(<App />, root); 
+</script>
+</html>
