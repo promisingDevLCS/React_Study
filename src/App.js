@@ -6,6 +6,7 @@ function App() {
   const [coins, setCoins] = useState([]);
   const [coinPrice, setCoinPrice] = useState(0);
   const [budget, setBudget] = useState(0);
+  const ss = 10;
 
   const onChange_price = (event) => {
     setBudget(event.target.value);
