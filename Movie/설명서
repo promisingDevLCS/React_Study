@@ -1,0 +1,63 @@
+# useState, useEffect, props, react-dom-router 등 기본적인 react 문법을 공부한 프로젝트
+# 영화 관련 정보 API를 받아와서 보여주는 프로젝트이다.
+
+# Tip
+
+    - 화살표 함수( () => {} or ())에서 중괄호 {}는 함수 본문 내에서 return 키워드를 명시적으로 사용해야 함
+        - {} : return 필수
+        - () : return 필요 x
+
+# CSS 모듈
+
+    - 확장자로 '파일이름.module.css'를 사용
+    - 사용하는 이유
+        1. 클래스 이름 중첩 방지
+        2. 유지보수 용이: 각 컴포넌트의 스타일을 독립적으로 관리할 수  있음
+
+# State
+
+# Props
+
+# useEffect(effect: Imperative Func, Dependencies: List)
+
+    - 특정 컴포넌트들은 처음 한번만 렌더링 되도록 설정할 수 있다.
+        - Ex. API를 요청하는 컴포넌트가 있을 때, re-rendering을   하게 되면 값이 계속해서 요청됨 -> 쓸모없는 요청
+
+    - effect : Imperative Function that can return clean up Function
+        - 여기서 'clean up Function' 은 컴포넌트가 Destroyed 될 때 실행되는 함수
+        - "다만, 자주 사용되진 x"
+        - ex. useEffect(() => {
+            console.log("Created");
+            return () => console.log("Destroyed");
+        }. []);
+
+    - Dependencies: 특정한 값이 바뀔 때만 effect가 실행
+        - ex. useEffect(()=>{
+            function ...
+        }, [value1, value2, ...])
+        -> value1 or value2 가 변경될 때만 function 실행
+
+# First Project(To Do List app)
+
+    - State를 변경할 때 직접 그 값에 접근해선 X
+    (SetXxx() 함수를 사용해야함)
+        - 따라서 JS에서 리스트에 값을 넣으려면 list.push(value)가 가능하지만, State를 사용하고 있으므로 이것은 좋은 접근이 X
+        - 해결 방법으로 추가할 값이 포함된 '새로운 리스트'를 만들어서 기존의 리스트와 연결
+        - ex. [newValue, ...currentArray], '...' 가 핵심!
+        - JSX에서 '...' 문법은 Spread 문법이라고 부른다.
+
+# Project.2 (Movie app)
+    * React Router
+        - 라우터를 사용하기 위해 'npm i react-router-dom@버전명' 으로 설치
+        - BrowserRouter, HashRouter ... : 라우터의 종류를 선택(주로 BrowserRouter)
+        - Switch : React Router를 통해 한 페이지에 여러개의 컴포넌트들을 라우팅 할 수 있음, Switch를 쓰면 그 중 하나만 랜더링 함
+        - Route  : 실제 라우트를 실행, path 경로를 설정할 수 있음
+        - Link   : 페이지의 새로고침 없이 다른 페이지로 이동을 지원
+            - html 의 <a> 태그와 비슷
+        
+    * Parameter
+        - 동적 URL 주소 지원 (ex. <Route path="/movie/:id">)
+        - 동적 URL을 사용하기 위해서 콜론 ':' 사용에 주의!
+        - useParams 를 통해 url 주소의 파라미터 값(id) 접근 가능
+            - useParams()의 결과로 객체를 반환
+            - 바로 값에 접근하고 싶다면 const {id} = useParams() 를 사용

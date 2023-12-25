@@ -1,0 +1,84 @@
+# React JS
+    * interactive 한 웹 애플리케이션을 만들기 위해 만들어진 언어이다.
+    * JavaScript로 먼저 html 요소를 만들고 그 이후에 렌더링 한다.
+    * JS로 html 요소 생성 -> html에 렌더링
+# 기존 JS
+    * html 요소들을 생성 -> JS로 처리
+
+# tip
+    * 'var' vs 'const' vs 'let'
+        - var   : function Scope, 동일한 스코프 범위 내에서 재선언 및 재할당 가능, hoisting 의 영향으로 선언전에 참조 할 수 있음
+        - let   : block Scope, 동일 스코프 범위 내에서 재할당 가능 재선언 불가능, 호이스팅의 영향을 받지만 초기화전에 참조하면 참조 에러 발생
+        - const : block Scope, 재선언 및 재할당 불가능, 따라서 선언과 동시에 초기값을 할당해야 함
+
+
+# 강의 내용 정리
+
+    * JSX Part 2
+        - Container 역시 JSX 스타일로 바꿔준다.
+        - Title, Button 을 function 형태로 바꿔줘야 함
+        - 단순히 <div>Title Button</div> 으로 설정하면 텍스트 그대로 렌더링 됨
+        - 따라서 <div><Title /> <Button /></div> 형식으로 바꿔줘야 함
+        - 직접 만든 컴포넌트들은 항상 대문자로 시작해야 함!!!
+        - Button -> button 으로 작성하면 React, JSX는 이것을 HTML 태그로 간주하므로 주의 
+
+    * State
+        - JSX 에서 변수를 표현할 때 '{}' 기호를 사용
+            - React에서 Babel을 통해 JSX를 JS로 변환할 때, JS문법을 사용하기 위해서 따로 mark를 해줘야하는데 그것이 '{}'
+        
+        - 무엇을 업데이트(변경) 하고나면, 화면을 다시 렌더링 해주는 것을 잊지말자
+        
+        - React 는 다시 렌더링 할 때 "바뀐 부분"만을 다시 렌더링 함
+
+    * SetState Part 1
+        - React.useState(초기값, function) -> 배열을 반환 [초기값, function]
+
+    * SetState Part 2
+        - const [counter, setCounter] = React.useState(0) 라고 한다면,
+            setCounter 을 통해서 counter 변수 값을 수정하고 자동으로 re-rendering 까지 해준다.
+        
+        - setCounter(function) 도 가능하다. 따라서 복잡한 계산이 필요하다면, 따로 function을 빼서 사용하는 것도 가능!
+
+    * State Functions
+        - const [counter, setCounter] = React.useState(0) 기준
+        - setCounter(function) 을 이용하면, 현재 counter 값을 이용할 수 있음
+        - setCounter(counter + 1) x 3, setCounter(current => current + 1) x 3 의 결과를 비교해보자
+        - (counter + 1)x3 : counter = 1, [(current) => current + 1]x3 : counter = 3
+    
+    * Inputs and State
+        - JSX에서 쓰이는 단어를 주의하자
+        - JS    : <label for>, class ...
+        - JSX   : <label htmlFor>, className ... 
+        - onChange()를 통해 Form(Input 태그)의 값 변화를 리스닝 가능
+        - Input 태그의 value 값을 가져오려면, 
+            function onChange(event){
+                console.log(event.target.value);
+            }
+    
+    * State Practice Part 2
+        - input 태그의 disable 옵션을 minutes, hours 에서 스위칭
+        - '===' 비교 연산자는 두 비교 대상의 '값과 타입' 둘 다 비교
+            - val = "123", val2 = 123 일 때, val === val2 는 false
+            - val: String 타입, val2: int 타입
+
+    * Props {#4.0}
+        - 앞서 배웠듯이 함수를 랜더링 할 때 <'함수이름' /> 을 사용
+        - 여기서 properties(인자)를 함수로 전달할 수 있음
+            - ex. <'함수이름' 'key' = 'value'>
+            - 함수에서는 전달받은 argument 를 객체로 만듦 ( {key:value}, {key2:value2} ... )
+        
+        - 함수에서 전달받은 인수를 객체로 만들기 때문에 template 문법을 사용해서 그 값에 바로 접근이 가능
+            - ex. function Ex(props){props.key로 접근} 
+                    ->  function Ex({key}){key로 접근}
+
+    * Memo
+        - Props의 변경 유무에 따라 re-rendering을 결정
+        - 하나의 Component를 Memorized 로 Wrapping
+        - 앞서 배웠듯이 state가 변경되면 React는 html을 re-rendering 한다.(물론, html 전체를 변경하는 것이 아닌 변경이 있는 일부분만 re-rendering)
+        - 하지만 state가 변경되지 않는 것도 re-rendering 하게 되므로 메모리 낭비가 발생함
+        - 따라서 React.memo(사용할 function) 을 이용해서 자동으로 필요한 것들만 re-rendering 해준다.
+
+    * PropTypes
+        - PropTypes를 통해 인수로 전달되는 props 의 타입을 지정해 줄 수 있음
+        - Btn.propTypes = {name: PropTypes.string.isRequired ... }
+        - '.isRequired' 는 필수적인 요소를 지정하는데 사용, 예외 처리로 콘솔 창에 경고 문구를 표시
